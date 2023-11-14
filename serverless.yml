@@ -1,0 +1,51 @@
+service: stone-case
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+      Resource: '*'
+
+functions:
+  registerVisit:
+    handler: src/handlers/RegisterVisit.handler
+    events:
+      - httpApi:
+          path: /visits
+          method: post
+  getVisits:
+    handler: src/handlers/GetVisits.handler
+    events:
+      - httpApi:
+          path: /visits
+          method: get
+  createUser:
+    handler: src/handlers/CreateUser.handler
+    events:
+      - httpApi:
+          path: /users
+          method: post
+
+resources:
+  Resources:
+    UsersTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: 'id'
+            AttributeType: 'S'
+        KeySchema:
+          - AttributeName: 'id'
+            KeyType: 'HASH'
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: users

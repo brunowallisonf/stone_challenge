@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.450.0",
+    "aws-sdk": "^2.1495.0",
+    "axios": "^1.6.1",
+    "bcrypt": "^5.1.1",
+    "countapi-js": "^1.0.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
