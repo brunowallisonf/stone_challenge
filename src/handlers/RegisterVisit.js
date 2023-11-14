@@ -1,3 +1,4 @@
+const counter = require('../config/counter');
 const { ok } = require('../helpers/http');
 const VisitsService = require('../services/VisitsService');
 const adaptHandlers = require('./adapters/adaptHandlers');
@@ -13,5 +14,5 @@ class IncrementVisitors {
 }
 
 module.exports.handler = adaptHandlers(
-  new IncrementVisitors(new VisitsService('bwfwn912', '1234'))
+  new IncrementVisitors(new VisitsService(counter.namespace, counter.key))
 );

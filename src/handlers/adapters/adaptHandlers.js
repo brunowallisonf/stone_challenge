@@ -8,9 +8,14 @@ module.exports = (handler) => {
         params: event.pathParameters,
         query: event.queryStringParameters,
       };
-      console.log(httpRequest);
+
       const result = await handler.handle(httpRequest);
-      console.log(result);
+      if (result.statusCode >= 400) {
+        return {
+          statusCode: result.statusCode,
+          body: JSON.stringify({ error: result.body.message }),
+        };
+      }
       return {
         statusCode: result.statusCode,
         body: JSON.stringify(result.body),

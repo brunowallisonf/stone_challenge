@@ -1,4 +1,5 @@
-const { ok } = require('../helpers/http');
+const UserNotFoundException = require('../errors/UserNotFoundError');
+const { ok, notFound } = require('../helpers/http');
 const UserRepository = require('../repository/UserRepository');
 const adaptHandlers = require('./adapters/adaptHandlers');
 
@@ -9,6 +10,9 @@ class FindUserById {
   async handle(httpRequest) {
     const { id } = httpRequest.params;
     const user = await this.userRepository.findById(id);
+    if (!user) {
+      return notFound(new UserNotFoundException());
+    }
     return ok({ user });
   }
 }

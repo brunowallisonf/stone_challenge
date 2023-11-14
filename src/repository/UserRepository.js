@@ -27,6 +27,16 @@ class UserRepository {
       .promise();
     return user?.Item;
   }
+  async findByEmail(email) {
+    const user = await this.dynamoDbClient
+      .get({
+        TableName: this.usersTable,
+        Key: { email: email },
+        ProjectionExpression: 'id, fullname, email',
+      })
+      .promise();
+    return user?.Item;
+  }
 }
 
 module.exports = UserRepository;

@@ -16,12 +16,19 @@ provider:
 functions:
   registerVisit:
     handler: src/handlers/RegisterVisit.handler
+    environment:
+      COUNTER_KEY: ${ssm:/counter_key}
+      COUNTER_NAMESPACE: ${ssm:/counter_namespace}
     events:
       - httpApi:
           path: /visits
           method: post
+
   getVisits:
     handler: src/handlers/GetVisits.handler
+    environment:
+      COUNTER_KEY: ${ssm:/counter_key}
+      COUNTER_NAMESPACE: ${ssm:/counter_namespace}
     events:
       - httpApi:
           path: /visits
