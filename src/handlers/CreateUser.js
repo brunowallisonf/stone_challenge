@@ -10,8 +10,12 @@ class CreateUser {
   }
   async handle(httpRequest) {
     console.log(httpRequest);
-    const { name, email, password } = httpRequest.body;
-    const user = await this.userService.createUser({ name, email, password });
+    const { fullname, email, password } = httpRequest.body;
+    const user = await this.userService.createUser({
+      fullname,
+      email,
+      password,
+    });
     return created({ user });
   }
 }

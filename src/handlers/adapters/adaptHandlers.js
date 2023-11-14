@@ -8,7 +8,7 @@ module.exports = (handler) => {
         params: event.pathParameters,
         query: event.queryStringParameters,
       };
-
+      console.log(httpRequest);
       const result = await handler.handle(httpRequest);
       console.log(result);
       return {

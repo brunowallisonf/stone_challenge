@@ -32,7 +32,12 @@ functions:
       - httpApi:
           path: /users
           method: post
-
+  findUserById:
+    handler: src/handlers/FindUserById.handler
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: get
 resources:
   Resources:
     UsersTable:

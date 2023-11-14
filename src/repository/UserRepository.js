@@ -6,8 +6,8 @@ class UserRepository {
     this.usersTable = dynamodb.tables.users;
     this.dynamoDbClient = new DynamoDB.DocumentClient();
   }
-  async create({ name, email, password }) {
-    const userToBeCreated = { id: randomUUID(), name, email, password };
+  async create({ fullname, email, password }) {
+    const userToBeCreated = { id: randomUUID(), fullname, email, password };
     await this.dynamoDbClient
       .put({
         TableName: this.usersTable,
@@ -18,7 +18,14 @@ class UserRepository {
     return { ...userToBeCreated, password: undefined };
   }
   async findById(id) {
-    const user = con
+    const user = await this.dynamoDbClient
+      .get({
+        TableName: this.usersTable,
+        Key: { id },
+        ProjectionExpression: 'id, fullname, email',
+      })
+      .promise();
+    return user?.Item;
   }
 }
 
