@@ -29,13 +29,15 @@ class UserRepository {
   }
   async findByEmail(email) {
     const user = await this.dynamoDbClient
-      .get({
+      .query({
         TableName: this.usersTable,
-        Key: { email: email },
-        ProjectionExpression: 'id, fullname, email',
+        IndexName: 'emailIdx',
+        KeyConditionExpression: 'email = :email',
+        ExpressionAttributeValues: { ':email': email },
       })
       .promise();
-    return user?.Item;
+
+    return user.Items[0];
   }
 }
 

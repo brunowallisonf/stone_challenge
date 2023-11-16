@@ -8,7 +8,7 @@ class UserService {
     if (userFound) {
       return null;
     }
-    const hashedPassword = await this.hasher.hash(password, this.salts);
+    const hashedPassword = await this.hasher.hash(password);
     return this.userRepository.create({
       fullname,
       email,

@@ -10,3 +10,6 @@ exports.notFound = function (error) {
 exports.forbidden = function (error) {
   return { statusCode: 403, body: error };
 };
+exports.badRequest = function (error) {
+  return { statusCode: 400, body: error };
+};

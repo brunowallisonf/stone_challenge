@@ -1,7 +1,6 @@
 module.exports = (handler) => {
   return async (event) => {
     try {
-      console.log(`event`, event);
       const httpRequest = {
         body: event.body && JSON.parse(event.body),
         headers: event.headers,
@@ -21,7 +20,6 @@ module.exports = (handler) => {
         body: JSON.stringify(result.body),
       };
     } catch (error) {
-      console.log(error);
       return { statusCode: 500, body: 'An error occurred' };
     }
   };
