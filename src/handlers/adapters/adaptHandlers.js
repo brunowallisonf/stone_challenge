@@ -20,6 +20,7 @@ module.exports = (handler) => {
         body: JSON.stringify(result.body),
       };
     } catch (error) {
+      console.log(error);
       return { statusCode: 500, body: 'An error occurred' };
     }
   };
