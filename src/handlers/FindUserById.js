@@ -16,5 +16,5 @@ class FindUserById {
     return ok({ user });
   }
 }
-
+exports.FindUserById = FindUserById;
 module.exports.handler = adaptHandlers(new FindUserById(new UserRepository()));
