@@ -4,7 +4,7 @@ module.exports = class CreateUserValidator {
   constructor() {
     this.validator = yup.object({
       fullname: yup.string().required(),
-      email: yup.string().required(),
+      email: yup.string().email().required(),
       password: yup.string().required().min(5).max(15),
     });
   }
